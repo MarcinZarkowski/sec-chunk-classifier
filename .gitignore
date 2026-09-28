@@ -18,3 +18,4 @@ stonky_sec_modernbert/
 stonky_sec_modernbert_final/
 *.jsonl
 *.completed
+chunk_detection_pipeline/

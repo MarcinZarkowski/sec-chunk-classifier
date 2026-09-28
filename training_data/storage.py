@@ -87,18 +87,21 @@ class Db:
             
         records = []
         for file_path in files:
+            accession_no = os.path.basename(file_path).replace('.jsonl', '')
             with open(file_path, 'r') as f:
                 for line in f:
                     if not line.strip(): continue
                     try:
-                        records.append(json.loads(line))
+                        record = json.loads(line)
+                        record["accession_no"] = accession_no  # inject from filename
+                        records.append(record)
                     except json.JSONDecodeError:
                         pass
         return records
 
 db = Db()
 
-async def save_chunks(result, batch, accession_no, chunk_size):
+async def save_chunks(result, batch, accession_no, chunk_size, only_keep_positives=False):
     parsed = json.loads(result.text)
     classifications = parsed.get('classifications', [])
     
@@ -107,4 +110,18 @@ async def save_chunks(result, batch, accession_no, chunk_size):
         if chunk_id is not None and 0 <= chunk_id < len(batch):
             cls["text"] = batch[chunk_id]
             
-    db.add(accession_no, chunk_size, classifications)
+    if only_keep_positives:
+        filtered = []
+        for cls in classifications:
+            labels = cls.get("section_labels", [])
+            if not labels:
+                continue
+            if len(labels) == 1 and labels[0] == "OTHER":
+                continue
+            filtered.append(cls)
+        classifications = filtered
+            
+    if classifications:
+        db.add(accession_no, chunk_size, classifications)
+        
+    return len(classifications)
