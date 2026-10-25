@@ -1,4 +1,10 @@
-en` on SEC filings.
+## Models trained:
+
+[jinabert_small](https://huggingface.co/MarcinZarkowski/stonky_sec_jinabert_small)
+[modernbert](https://huggingface.co/MarcinZarkowski/modernbert-sec-classifier)
+
+
+
 ## AWS SageMaker Setup Instructions
 
 Run these exact commands in your SageMaker terminal to install `uv`, create the environment, and link it to the Jupyter Notebook.
@@ -35,3 +41,5 @@ python -m ipykernel install --user --name=sec-chunk-env --display-name "Python (
 2. Click the Kernel name in the top right (e.g., "Python 3").
 3. Select **Python (sec-chunk)** from the dropdown list.
 4. Run all cells to start training the model on the GPU!
+
+
