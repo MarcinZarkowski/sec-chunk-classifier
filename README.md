@@ -1,7 +1,7 @@
 ## Models trained:
 
-[jinabert_small](https://huggingface.co/MarcinZarkowski/stonky_sec_jinabert_small)
-[modernbert](https://huggingface.co/MarcinZarkowski/modernbert-sec-classifier)
+* [jinabert_small](https://huggingface.co/MarcinZarkowski/stonky_sec_jinabert_small)
+* [modernbert](https://huggingface.co/MarcinZarkowski/modernbert-sec-classifier)
 
 
 
